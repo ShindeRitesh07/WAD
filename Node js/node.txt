@@ -1,0 +1,70 @@
+Step 1: Create Project Folder
+mkdir myapp
+cd myapp
+
+Step 2: Initialize Node Project
+npm init -y
+
+Step 3: Install Express
+npm install express
+
+Step 4: Create server.js
+const express = require('express');
+const path = require('path');
+
+const app = express();
+
+app.use(express.static('public'));
+
+app.listen(3000, () => {
+    console.log('Server running on port 3000');
+});
+
+Step 5: Create Public Folder
+mkdir public
+
+Step 6: Create index.html
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Website</title>
+</head>
+<body>
+    <h1>Hello AWS Cloud</h1>
+</body>
+</html>
+
+Step 7: Run Application
+node server.js
+
+Open browser:
+http://localhost:3000
+
+AWS Deployment - Step 1
+Login to AWS Console and open EC2 service.
+
+AWS Deployment - Step 2
+Launch Ubuntu EC2 instance with t2.micro.
+
+AWS Deployment - Step 3
+Connect EC2 using SSH:
+ssh -i key.pem ubuntu@YOUR-IP
+
+AWS Deployment - Step 4
+Install Node.js:
+sudo apt update
+sudo apt install nodejs npm -y
+
+AWS Deployment - Step 5
+Upload Project:
+scp -i key.pem -r myapp ubuntu@YOUR-IP:/home/ubuntu/
+
+AWS Deployment - Step 6
+Run Application:
+cd myapp
+npm install
+node server.js
+
+AWS Deployment - Step 7
+Open website:
+http://YOUR-IP:3000
