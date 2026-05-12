@@ -1,0 +1,71 @@
+Step 1: Create Salesforce Developer Account
+Open https://developer.salesforce.com/signup and create a free developer account. Verify your email and login to Salesforce.
+
+Step 2: Open Setup
+After login, click the Gear Icon (⚙️) and select Setup.
+
+Step 3: Open App Manager
+In the Search Setup box, type App Manager and open it.
+
+Step 4: Create New Lightning App
+Click New Lightning App.
+App Name: Student Management
+Description: Student Management Application
+Click Next and continue with default settings.
+
+Step 5: Add Navigation Items
+Add Accounts, Contacts, Reports, and Dashboards.
+Click Next and Save & Finish.
+
+Step 6: Create Custom Object
+Open Object Manager.
+Click Create → Custom Object.
+Enter:
+Label: Student
+Plural Label: Students
+Object Name: Student
+Description: Student Management Object
+Click Save.
+
+Step 7: Create Custom Fields
+Open Fields & Relationships and click New.
+
+Field 1:
+Type: Text
+Field Label: Course
+Length: 50
+
+Field 2:
+Type: Number
+Field Label: Age
+Length: 2
+Decimal Places: 0
+
+Field 3:
+Type: Email
+Field Label: Email
+
+Field 4:
+Type: Phone
+Field Label: Mobile
+
+Step 8: Create Student Tab
+In Search Setup, type Tabs.
+Under Custom Object Tabs click New.
+Select Student object and choose any tab style.
+Click Save.
+
+Step 9: Open Student Management App
+Click App Launcher (9 dots icon).
+Search Student Management and open the app.
+
+Step 10: Add Student Record
+
+Open Students tab and click New.
+Enter details:
+Student Name: Ritesh
+Course: BCA
+Age: 20
+Email: ritesh@gmail.com
+Mobile: 9876543210
+Click Save.
