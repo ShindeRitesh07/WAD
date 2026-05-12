@@ -1,0 +1,203 @@
+Step 1: Check Installation
+ Open Command Prompt: 
+node -v
+npm -v 
+mongod --version
+
+Step 2: Create Project Folder
+mkdir MYAPP 
+cd MYAPP 
+
+Step 3: Initialize Node Project 
+npm init -y
+
+Step 4: Install Packages
+ npm install express mongoose nodemon
+
+Step 5: File Structure
+ MYAPP 
+│ 
+├── User.js 
+├── server.js 
+├── package.json 
+├── package-lock.json 
+└── node_modules
+
+
+Step 6: Create User Model 
+File: User.js 
+
+const mongoose = require("mongoose"); 
+const userSchema = new mongoose.Schema({
+      name: String, 
+      email: String, 
+      age: Number
+ }); 
+module.exports = mongoose.model("User", userSchema);
+
+Step 7: Create Server File
+File: server.js
+const express = require("express");
+const mongoose = require("mongoose");
+
+const app = express();
+
+app.use(express.json());
+
+const User = require("./User");
+
+
+// MongoDB Connection
+mongoose.connect("mongodb://127.0.0.1:27017/crudDB")
+.then(() => console.log("MongoDB Connected"));
+
+
+// CREATE API
+app.post("/users", async (req, res) => {
+
+const user = new User(req.body);
+
+const data = await user.save();
+
+res.json(data);
+});
+
+
+// READ API
+app.get("/users", async (req, res) => {
+
+const data = await User.find();
+
+res.json(data);
+});
+
+
+// UPDATE API
+app.put("/users/:id", async (req, res) => {
+
+const data = await User.findByIdAndUpdate(
+req.params.id,
+req.body,
+{ new: true }
+);
+
+res.json(data);
+});
+
+
+// DELETE API
+app.delete("/users/:id", async (req, res) => {
+
+await User.findByIdAndDelete(req.params.id);
+
+res.json({
+message: "Deleted Successfully"
+});
+});
+
+
+// Server Start
+app.listen(3000, () => {
+
+console.log("Server Running on Port 3000");
+
+});
+Step 8: Start MongoDB
+Open NEW CMD:
+
+mongod
+Step 9: Run Project
+Open VS Code terminal:
+
+npx nodemon server.js
+
+Step 10: Open Postman
+
+Open Postman application.
+
+Step 11: Test CREATE API
+
+
+Method:
+
+
+POST
+
+
+
+URL
+
+
+http://localhost:3000/users
+
+
+Body → raw → JSON
+
+
+{
+  "name": "Ritesh",
+  "email": "ritesh@gmail.com",
+  "age": 21
+}
+Step 12: Test READ API
+
+Method:
+
+GET
+
+
+URL
+
+http://localhost:3000/users
+Click:
+
+Send
+Step 13: Test UPDATE API
+
+Method:
+
+PUT
+
+
+URL
+http://localhost:3000/users/USER_ID
+Example:
+
+http://localhost:3000/users/68203c1e123456789
+
+Body
+{
+  "name": "Updated Name"
+}
+Step 14: Test DELETE API
+
+Method:
+
+DELETE
+
+
+URL
+
+http://localhost:3000/users/USER_ID
+Click:
+
+Step 15: Open MongoDB Compass
+
+
+Open:
+
+
+
+MongoDB Compass
+Connection string:
+
+mongodb://localhost:27017
+Click:
+
+Connect
+Open:
+
+crudDB
+Open collection:
+
+users
