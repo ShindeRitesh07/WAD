@@ -1,0 +1,78 @@
+1 Install Docker
+Command:
+sudo apt install docker.io
+
+2 Check Docker Version
+Command:
+docker -v
+
+3 Check Images Available in Docker
+Command:
+sudo docker images
+
+4 Check Docker Containers Available
+Command:
+sudo docker ps
+
+For all containers:
+sudo docker ps -a
+
+5 Pull Python Docker Image from Docker Hub
+Command:
+sudo docker pull python
+
+6 Check Available Images and Containers
+
+Images:
+sudo docker images
+
+Containers:
+sudo docker ps -a
+
+7 Run the Docker Image
+Command:
+sudo docker run -it --name py python
+
+Explanation:
+run → create container
+-it → interactive mode
+--name py → container name
+python → image name
+
+8 Check Container Available in Docker
+Command:
+sudo docker ps -a
+
+9 Execute Container
+
+Start container:
+sudo docker start py
+
+Execute Python:
+sudo docker exec -it py python3
+
+Program for Addition of Two Numbers:
+
+a = 10
+b = 20
+c = a + b
+print("Addition =", c)
+
+Output:
+Addition = 30
+
+10 Exit from Python Terminal
+Command:
+exit()
+
+11 Stop Container
+Command:
+sudo docker stop py
+
+12 Remove Container
+Command:
+sudo docker container rm py
+
+13 Remove Docker Image
+Command:
+sudo docker image rm python
