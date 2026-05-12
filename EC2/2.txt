@@ -1,0 +1,46 @@
+Step 1: Login to AWS Console and open EC2 service.
+
+Step 2: Click Launch Instance.
+
+Step 3: Enter instance name: EcommerceServer.
+
+Step 4: Select Ubuntu Server 24.04 LTS AMI.
+
+Step 5: Choose instance type t2.micro.
+
+Step 6: Create and download key pair (.pem file).
+
+Step 7: Allow SSH, HTTP, and HTTPS traffic.
+
+Step 8: Launch the instance and wait until Running.
+
+Step 9: Connect using EC2 Instance Connect.
+
+Step 10: Install Apache:
+sudo apt update
+sudo apt install apache2 unzip wget -y
+sudo systemctl start apache2
+sudo systemctl enable apache2
+
+Step 11: Download ecommerce template from freewebsitetemplates.com.
+
+Step 12: Upload ZIP file using SCP command:
+scp -i ubuntu-key.pem website.zip ubuntu@PUBLIC_IP:/tmp
+
+Step 13: Extract ZIP file:
+cd /tmp
+unzip website.zip
+
+Step 14: Remove default Apache page:
+sudo rm /var/www/html/index.html
+
+Step 15: Copy website files:
+sudo cp -r website-folder/* /var/www/html/
+
+Step 16: Give permissions:
+sudo chmod -R 755 /var/www/html
+
+Step 17: Restart Apache:
+sudo systemctl restart apache2
+
+Step 18: Open browser and type: http://PUBLIC_IP
