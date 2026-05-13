@@ -1,0 +1,348 @@
+1. Create Salesforce Developer Account
+Open: Salesforce Developer Signup
+Fill all details
+Verify email
+Login to Salesforce
+2. Open Setup
+Click ⚙️ Gear Icon
+Select:
+Setup
+3. Create Property Custom Object
+Step 1
+
+Go to:
+
+Object Manager
+Step 2
+
+Click:
+
+Create → Custom Object
+Step 3
+
+Fill details:
+
+Field	Value
+Label	Property
+Plural Label	Properties
+Object Name	Property
+Record Name	Property Name
+Data Type	Text
+
+Enable:
+
+Allow Reports
+Allow Activities
+
+Click:
+
+Save
+4. Create Fields for Property Object
+
+Go to:
+
+Property → Fields & Relationships
+A) Property ID
+New
+Auto Number
+Fill:
+Field	Value
+Field Label	Property ID
+Display Format	PRO-{0000}
+Starting Number	1
+Save
+B) Property Type
+New
+Picklist
+Values:
+Apartment
+Flat
+House
+Villa
+Save
+C) Address
+New
+Text Area
+Field Label:
+Address
+Save
+D) Rent Amount
+New
+Currency
+Field Label:
+Rent Amount
+Save
+E) Status
+New
+Picklist
+Values:
+Available
+Rented
+Save
+5. Create Tenant Custom Object
+Step 1
+
+Go to:
+
+Object Manager
+Step 2
+
+Click:
+
+Create → Custom Object
+Step 3
+
+Fill:
+
+Field	Value
+Label	Tenant
+Plural Label	Tenants
+Object Name	Tenant
+Record Name	Tenant Name
+Data Type	Text
+
+Enable:
+
+Allow Reports
+Allow Activities
+
+Save.
+
+6. Create Fields for Tenant Object
+
+Go to:
+
+Tenant → Fields & Relationships
+A) Tenant ID
+New
+Auto Number
+Fill:
+Field	Value
+Display Format	TEN-{0000}
+Starting Number	1
+
+Save.
+
+B) Phone Number
+New
+Phone
+Save
+C) Email
+New
+Email
+Save
+D) Move In Date
+New
+Date
+Save
+E) Status
+New
+Picklist
+Values:
+Active
+Inactive
+Save
+F) Property Lookup Relationship
+New
+Lookup Relationship
+Related To:
+Property
+Field Label:
+Property
+Save
+
+Relationship created:
+
+One Property → Many Tenants
+7. Create Tabs
+Property Tab
+Setup Search:
+Tabs
+Open Tabs
+Under Custom Object Tabs click:
+New
+Select:
+Property
+Choose style
+Save
+Tenant Tab
+
+Repeat steps:
+
+Select Tenant
+Save
+8. Create Lightning App
+Step 1
+
+Search:
+
+App Manager
+Step 2
+
+Open:
+
+App Manager
+Step 3
+
+Click:
+
+New Lightning App
+Step 4
+
+Enter:
+
+Field	Value
+App Name	Rental Property Management
+
+Click Next.
+
+Step 5
+
+Skip Utility Items.
+
+Click Next.
+
+Step 6
+
+Add Navigation Items:
+
+Property
+Tenant
+Reports
+Dashboards
+
+Move to selected items.
+
+Click Next.
+
+Step 7
+
+Select profile:
+
+System Administrator
+
+Save & Finish.
+
+9. Add Property Records
+
+Open Property tab → New
+
+Example records:
+
+Property Name	Type	Address	Rent	Status
+Green Villa	House	Pune	25000	Available
+Sky Heights	Apartment	Mumbai	18000	Rented
+Royal Palace	Villa	Delhi	40000	Available
+
+Save records.
+
+10. Add Tenant Records
+
+Open Tenant tab → New
+
+Example:
+
+Tenant Name	Phone	Email	Move In Date	Status	Property
+Rahul Sharma	9876543210	rahul@gmail.com
+	Today	Active	Green Villa
+
+Save records.
+
+11. Create Reports
+A) Available Properties Report
+Open Reports
+New Report
+Select:
+Property
+Start Report
+Add columns:
+Property Name
+Property Type
+Address
+Rent Amount
+Status
+Filter:
+Status = Available
+Save & Run
+Field	Value
+Report Name	Available Properties Report
+Unique Name	Available_Properties_Report
+
+Save.
+
+B) Rented Properties Report
+
+Repeat same steps.
+
+Filter:
+
+Status = Rented
+
+Save:
+
+Field	Value
+Report Name	Rented Properties Report
+Unique Name	Rented_Properties_Report
+C) Tenant Details Report
+New Report
+Select:
+Tenant
+Add columns:
+Tenant Name
+Phone
+Email
+Property
+Status
+Save:
+Field	Value
+Report Name	Tenant Details Report
+Unique Name	Tenant_Details_Report
+12. Create Dashboard
+Step 1
+
+Open:
+
+Dashboards
+Step 2
+
+Click:
+
+New Dashboard
+Step 3
+
+Fill:
+
+Field	Value
+Dashboard Name	Rental Dashboard
+Unique Name	Rental_Dashboard
+
+Click Create.
+
+13. Add Dashboard Components
+A) Available Houses
+Component
+Select:
+Available Properties Report
+Chart:
+Donut Chart
+Title:
+Available Houses
+B) Occupied Houses
+Component
+Select:
+Rented Properties Report
+Pie Chart
+Title:
+Occupied Houses
+C) Total Tenants
+Component
+Select:
+Tenant Details Report
+Table or Metric
+Title:
+Total Tenants
+14. Save Dashboard
+
+Click:
+
+Save

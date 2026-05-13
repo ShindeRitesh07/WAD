@@ -1,0 +1,292 @@
+1. Install Required Software
+Install Node.js
+
+Download from:
+
+Node.js
+
+Check installation:
+
+node -v
+npm -v
+2. Install Angular CLI
+
+Open terminal or PowerShell:
+
+npm install -g @angular/cli
+
+Check Angular version:
+
+ng version
+3. Create Angular Project
+ng new user-auth-app
+
+Options:
+
+Would you like to add Angular routing? → Yes
+Which stylesheet format? → CSS
+
+Move into project folder:
+
+cd user-auth-app
+
+Run project:
+
+ng serve
+
+Open browser:
+
+http://localhost:4200
+4. Create Components
+
+Create components for:
+
+Register
+Login
+Profile
+
+Commands:
+
+ng generate component register
+ng generate component login
+ng generate component profile
+
+Short form:
+
+ng g c register
+ng g c login
+ng g c profile
+5. Create Service
+
+Create authentication service:
+
+ng generate service services/auth
+6. Project Structure
+src
+ └── app
+      ├── login
+      ├── register
+      ├── profile
+      ├── services
+      │     └── auth.service.ts
+      ├── app-routing.module.ts
+      ├── app.module.ts
+7. Configure app.module.ts
+
+Open:
+
+src/app/app.module.ts
+
+Replace code:
+
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
+
+import { AppComponent } from './app.component';
+import { RegisterComponent } from './register/register.component';
+import { LoginComponent } from './login/login.component';
+import { ProfileComponent } from './profile/profile.component';
+
+@NgModule({
+  declarations: [
+    AppComponent,
+    RegisterComponent,
+    LoginComponent,
+    ProfileComponent
+  ],
+  imports: [
+    BrowserModule,
+    FormsModule,
+    RouterModule.forRoot([
+      { path: '', component: RegisterComponent },
+      { path: 'login', component: LoginComponent },
+      { path: 'profile', component: ProfileComponent }
+    ])
+  ],
+  providers: [],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }
+8. Create Auth Service
+
+Open:
+
+src/app/services/auth.service.ts
+
+Code:
+
+import { Injectable } from '@angular/core';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class AuthService {
+
+  register(user: any) {
+    localStorage.setItem('user', JSON.stringify(user));
+  }
+
+  login(email: string, password: string): boolean {
+
+    const user = JSON.parse(localStorage.getItem('user') || '{}');
+
+    if (user.email === email && user.password === password) {
+      localStorage.setItem('loggedIn', 'true');
+      return true;
+    }
+
+    return false;
+  }
+
+  getUser() {
+    return JSON.parse(localStorage.getItem('user') || '{}');
+  }
+}
+9. Register Component
+register.component.ts
+import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthService } from '../services/auth.service';
+
+@Component({
+  selector: 'app-register',
+  templateUrl: './register.component.html'
+})
+export class RegisterComponent {
+
+  user = {
+    name: '',
+    email: '',
+    password: ''
+  };
+
+  constructor(private auth: AuthService,
+              private router: Router) {}
+
+  registerUser() {
+    this.auth.register(this.user);
+    alert('Registration Successful');
+    this.router.navigate(['/login']);
+  }
+}
+register.component.html
+<h2>Register</h2>
+
+<input type="text"
+placeholder="Name"
+[(ngModel)]="user.name">
+
+<br><br>
+
+<input type="email"
+placeholder="Email"
+[(ngModel)]="user.email">
+
+<br><br>
+
+<input type="password"
+placeholder="Password"
+[(ngModel)]="user.password">
+
+<br><br>
+
+<button (click)="registerUser()">
+Register
+</button>
+
+<br><br>
+
+<a routerLink="/login">Go to Login</a>
+10. Login Component
+login.component.ts
+import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthService } from '../services/auth.service';
+
+@Component({
+  selector: 'app-login',
+  templateUrl: './login.component.html'
+})
+export class LoginComponent {
+
+  email = '';
+  password = '';
+
+  constructor(private auth: AuthService,
+              private router: Router) {}
+
+  loginUser() {
+
+    const success =
+      this.auth.login(this.email, this.password);
+
+    if (success) {
+      alert('Login Successful');
+      this.router.navigate(['/profile']);
+    } else {
+      alert('Invalid Credentials');
+    }
+  }
+}
+login.component.html
+<h2>Login</h2>
+
+<input type="email"
+placeholder="Email"
+[(ngModel)]="email">
+
+<br><br>
+
+<input type="password"
+placeholder="Password"
+[(ngModel)]="password">
+
+<br><br>
+
+<button (click)="loginUser()">
+Login
+</button>
+
+<br><br>
+
+<a routerLink="/">Go to Register</a>
+11. Profile Component
+profile.component.ts
+import { Component, OnInit } from '@angular/core';
+import { AuthService } from '../services/auth.service';
+
+@Component({
+  selector: 'app-profile',
+  templateUrl: './profile.component.html'
+})
+export class ProfileComponent implements OnInit {
+
+  user: any = {};
+
+  constructor(private auth: AuthService) {}
+
+  ngOnInit(): void {
+    this.user = this.auth.getUser();
+  }
+}
+profile.component.html
+<h2>User Profile</h2>
+
+<p><b>Name:</b> {{user.name}}</p>
+
+<p><b>Email:</b> {{user.email}}</p>
+12. Configure app.component.html
+
+Replace with:
+
+<h1>Angular User Authentication App</h1>
+
+<router-outlet></router-outlet>
+13. Run Application
+ng serve
+
+Open:
+
+http://localhost:4200
